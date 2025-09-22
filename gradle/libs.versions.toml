@@ -1,5 +1,9 @@
 [versions]
+<<<<<<< Updated upstream
 agp = "8.10.0"
+=======
+agp = "8.12.3"
+>>>>>>> Stashed changes
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
