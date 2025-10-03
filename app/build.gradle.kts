@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    // Dependências padrão
+    // AndroidX / Navegação / UI
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,25 +50,19 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // Firebase + Google Sign-In
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    // Firebase: use SEMPRE o BoM para alinhar versões
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    // (Opcional) só mantenha o que realmente usar:
+    // implementation("com.google.firebase:firebase-storage-ktx")
+    // implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.2.0")
 
-    // Testes
-
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.common.ktx)
-    implementation(libs.firebase.database.ktx)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.storage.ktx)
-    implementation(libs.play.services.auth)
-    implementation(libs.firebase.firestore.ktx)
-    implementation(libs.firebase.crashlytics.buildtools)
-
+    // Outras libs do seu projeto
     implementation(libs.glide)
-
     implementation(libs.jetbrains.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 

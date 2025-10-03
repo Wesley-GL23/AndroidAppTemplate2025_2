@@ -1,9 +1,22 @@
 <resources>
+    <!-- App / Bottom tabs -->
     <string name="app_name">AndroidAppTemplate</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Minha Conta</string>
 
-    <string name="title_profile">Profile</string>
+    <!-- Login -->
+    <string name="login_title">Login de Usuário</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_senha">Senha</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_google">Entrar com Google</string>
+    <string name="link_register">Cadastre-se</string>
+
+    <!-- Profile -->
+    <string name="btn_logout">Sair</string>
+
+    <!-- Opcional: se o build reclamar que não encontra esse ID -->
+    <string name="default_web_client_id">SEU_CLIENT_ID_WEB.apps.googleusercontent.com</string>
 </resources>
