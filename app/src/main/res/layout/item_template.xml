@@ -3,43 +3,57 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="12dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <!-- Imagem do item -->
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        android:background="#EAEAEA"
+        android:contentDescription="Imagem do item" />
+
+    <!-- Texto do endereço -->
+    <TextView
+        android:id="@+id/item_endereco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:text="Endereço: ..."
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp" />
 
-        <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="8dp" />
+    <!-- Texto da descrição -->
+    <TextView
+        android:id="@+id/item_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descrição: ..."
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:paddingBottom="2dp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+    <!-- Texto da categoria -->
+    <TextView
+        android:id="@+id/item_categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categoria: ..."
+        android:textSize="15sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="8dp" />
 
-            <TextView
-                android:id="@+id/item_endereco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Endereço:"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <!-- Campos futuros aqui -->
-        </LinearLayout>
-    </LinearLayout>
-
+    <!-- Linha divisória -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:background="#CCCCCC" />
+
 </LinearLayout>

@@ -49,42 +49,57 @@ class HomeFragment : Fragment() {
     }
 
     fun carregarItensMarketplace(container: LinearLayout) {
-        val databaseRef = FirebaseDatabase.getInstance().getReference("itens")
+        val userId = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
 
-        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        if (userId == null) {
+            Toast.makeText(container.context, "Usuário não autenticado", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val databaseRef = FirebaseDatabase.getInstance().getReference("itens").child(userId)
+
+        databaseRef.addListenerForSingleValueEvent(object : com.google.firebase.database.ValueEventListener {
+            override fun onDataChange(snapshot: com.google.firebase.database.DataSnapshot) {
                 container.removeAllViews()
 
-                for (userSnapshot in snapshot.children) {
-                    for (itemSnapshot in userSnapshot.children) {
-                        val item = itemSnapshot.getValue(Item::class.java) ?: continue
+                if (!snapshot.exists()) {
+                    Toast.makeText(container.context, "Nenhum item cadastrado", Toast.LENGTH_SHORT).show()
+                    return
+                }
 
-                        val itemView = LayoutInflater.from(container.context)
-                            .inflate(R.layout.item_template, container, false)
+                for (itemSnapshot in snapshot.children) {
+                    val item = itemSnapshot.getValue(com.ifpr.androidapptemplate.baseclasses.Item::class.java) ?: continue
 
-                        val imageView = itemView.findViewById<ImageView>(R.id.item_image)
-                        val enderecoView = itemView.findViewById<TextView>(R.id.item_endereco)
+                    val itemView = LayoutInflater.from(container.context)
+                        .inflate(R.layout.item_template, container, false)
 
-                        enderecoView.text = "Endereço: ${item.endereco ?: "Não informado"}"
+                    val imageView = itemView.findViewById<ImageView>(R.id.item_image)
+                    val enderecoView = itemView.findViewById<TextView>(R.id.item_endereco)
+                    val descricaoView = itemView.findViewById<TextView>(R.id.item_descricao)
+                    val categoriaView = itemView.findViewById<TextView>(R.id.item_categoria)
 
-                        if (!item.imageUrl.isNullOrEmpty()) {
-                            Glide.with(container.context).load(item.imageUrl).into(imageView)
-                        } else if (!item.base64Image.isNullOrEmpty()) {
-                            try {
-                                val bytes = Base64.decode(item.base64Image, Base64.DEFAULT)
-                                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                                imageView.setImageBitmap(bitmap)
-                            } catch (_: Exception) {}
-                        }
+                    enderecoView.text = "Endereço: ${item.endereco ?: "Não informado"}"
+                    descricaoView.text = "Descrição: ${item.descricao ?: "Sem descrição"}"
+                    categoriaView.text = "Categoria: ${item.categoria ?: "Não informada"}"
 
-                        container.addView(itemView)
+                    if (!item.imageUrl.isNullOrEmpty()) {
+                        Glide.with(container.context).load(item.imageUrl).into(imageView)
+                    } else if (!item.base64Image.isNullOrEmpty()) {
+                        try {
+                            val bytes = Base64.decode(item.base64Image, Base64.DEFAULT)
+                            val bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                            imageView.setImageBitmap(bitmap)
+                        } catch (_: Exception) {}
                     }
+
+                    container.addView(itemView)
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(container.context, "Erro ao carregar dados", Toast.LENGTH_SHORT).show()
+            override fun onCancelled(error: com.google.firebase.database.DatabaseError) {
+                Toast.makeText(container.context, "Erro ao carregar dados: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
 }
